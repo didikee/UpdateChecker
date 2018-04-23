@@ -1,9 +1,12 @@
 package simple.didikee.updatechecker;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import java.util.List;
+
+import github.didikee.updatechecker.ApkInfo;
 import github.didikee.updatechecker.UpdateProgressListener;
 import github.didikee.updatechecker.UpdateVersionChecker;
 
@@ -20,8 +23,10 @@ public class MainActivity extends AppCompatActivity {
         UpdateVersionChecker updateVersionChecker = new UpdateVersionChecker();
         updateVersionChecker.checkUpdate(new UpdateProgressListener() {
             @Override
-            public void onSuccess(String version, int versionCode) {
-                Log.d(TAG, "version: " + version);
+            public void onSuccess(List<ApkInfo> result) {
+                for (ApkInfo apkInfo : result) {
+                    Log.d(TAG, "apkInfo market: " + apkInfo.market + " versionName: " + apkInfo.versionName);
+                }
             }
         });
 
