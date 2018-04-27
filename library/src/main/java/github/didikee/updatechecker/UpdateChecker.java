@@ -1,6 +1,7 @@
 package github.didikee.updatechecker;
 
 import android.os.AsyncTask;
+import android.text.TextUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,14 +14,13 @@ import github.didikee.updatechecker.checker.TencentChecker;
  * Created by didikee on 2018/3/1.
  */
 
-public class UpdateVersionChecker {
-    private static final String PACKAGE_NAME = "com.didikee.gifparser";
+public class UpdateChecker {
 
-    public void checkUpdate(final UpdateProgressListener updateProgressListener) {
-        new MyTask(updateProgressListener).execute();
+    public void checkUpdate(String packageName, final UpdateProgressListener updateProgressListener) {
+        new MyTask(updateProgressListener).execute(packageName);
     }
 
-    private static class MyTask extends AsyncTask<Void, Void, List<ApkInfo>> {
+    private static class MyTask extends AsyncTask<String, Void, List<ApkInfo>> {
         UpdateProgressListener updateProgressListener;
 
         private MyTask(UpdateProgressListener updateProgressListener) {
@@ -28,11 +28,14 @@ public class UpdateVersionChecker {
         }
 
         @Override
-        protected List<ApkInfo> doInBackground(Void... voids) {
+        protected List<ApkInfo> doInBackground(String... strings) {
             List<ApkInfo> apkInfos = new ArrayList<>();
-            apkInfos.add(new GoogleChecker().check(PACKAGE_NAME));
-            apkInfos.add(new TencentChecker().check(PACKAGE_NAME));
-            apkInfos.add(new CoolapkChecker().check(PACKAGE_NAME));
+            String packageName = strings[0];
+            if (!TextUtils.isEmpty(packageName)) {
+                apkInfos.add(new GoogleChecker().check(packageName));
+                apkInfos.add(new TencentChecker().check(packageName));
+                apkInfos.add(new CoolapkChecker().check(packageName));
+            }
             return apkInfos;
         }
 

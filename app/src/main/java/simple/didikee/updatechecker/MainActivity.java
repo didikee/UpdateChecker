@@ -8,7 +8,7 @@ import java.util.List;
 
 import github.didikee.updatechecker.ApkInfo;
 import github.didikee.updatechecker.UpdateProgressListener;
-import github.didikee.updatechecker.UpdateVersionChecker;
+import github.didikee.updatechecker.UpdateChecker;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "DemoChecker";
@@ -20,8 +20,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        UpdateVersionChecker updateVersionChecker = new UpdateVersionChecker();
-        updateVersionChecker.checkUpdate(new UpdateProgressListener() {
+        UpdateChecker updateChecker = new UpdateChecker();
+        updateChecker.checkUpdate(new UpdateProgressListener() {
             @Override
             public void onSuccess(List<ApkInfo> result) {
                 for (ApkInfo apkInfo : result) {
