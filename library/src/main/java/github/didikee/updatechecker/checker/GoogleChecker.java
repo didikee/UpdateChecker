@@ -9,6 +9,7 @@ import java.io.IOException;
 
 import github.didikee.updatechecker.ApkInfo;
 import github.didikee.updatechecker.AppMarkets;
+import github.didikee.updatechecker.Constant;
 
 
 /**
@@ -22,8 +23,8 @@ public class GoogleChecker implements IChecker {
         ApkInfo apkInfo = new ApkInfo(AppMarkets.GOOGLE_PLAY);
         try {
             Document document2 = Jsoup.connect(AppMarkets.getGooglePlayLink(packageName))
-                    .timeout(8 * 1000)
-                    .userAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36")
+                    .timeout(Constant.TIME_OUT)
+                    .userAgent(Constant.GOOGLE_CHROME)
                     .get();
             Elements metaInfoElements = document2.getElementsByClass("meta-info");
             if (metaInfoElements != null && metaInfoElements.size() > 0) {

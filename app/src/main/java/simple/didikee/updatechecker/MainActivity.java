@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         UpdateChecker updateChecker = new UpdateChecker();
-        updateChecker.checkUpdate(new UpdateProgressListener() {
+        updateChecker.checkUpdate(SAMPLE_PACKAGE_NAME,new UpdateProgressListener() {
             @Override
             public void onSuccess(List<ApkInfo> result) {
                 for (ApkInfo apkInfo : result) {

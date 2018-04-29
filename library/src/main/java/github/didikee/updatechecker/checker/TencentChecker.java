@@ -11,6 +11,7 @@ import java.io.IOException;
 
 import github.didikee.updatechecker.ApkInfo;
 import github.didikee.updatechecker.AppMarkets;
+import github.didikee.updatechecker.Constant;
 
 /**
  * Created by didikee on 2018/4/21.
@@ -24,6 +25,8 @@ public class TencentChecker implements IChecker {
         try {
 
             Document document = Jsoup.connect(AppMarkets.getTencentLink(packageName))
+                    .timeout(Constant.TIME_OUT)
+                    .userAgent(Constant.GOOGLE_CHROME)
                     .get();
             if (document != null) {
                 Elements infoDataElements = document.getElementsByClass("det-othinfo-data");
